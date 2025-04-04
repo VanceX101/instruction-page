@@ -6,6 +6,29 @@
     <title>Telegram Bot Mini App Guide</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
+        /* Global Styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            color: #333;
+            background-color: #f7f7f7;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Highlight Box */
+        .highlight {
+            background-color: #fef5c3;
+            padding: 0.5em;
+            border-radius: 10px;
+            font-weight: bold;
+            color: #f1a800;
+        }
+
+        /* Step visibility effects */
         .step {
             opacity: 0;
             transition: opacity 1s ease-out;
@@ -13,65 +36,94 @@
         .step.visible {
             opacity: 1;
         }
-        .highlight {
-            background-color: #ffed5e;
-            padding: 0.5em;
-            border-radius: 8px;
+
+        /* Animations for elements */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .step {
+                text-align: center;
+            }
+
+            .container {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+
+        /* Scrolling Effect */
+        .scroll-animation {
+            transition: transform 1s ease-out;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans">
+<body>
 
 <!-- Header -->
-<header class="bg-gradient-to-r from-blue-500 to-teal-500 text-white p-8 text-center">
-    <h1 class="text-4xl font-bold mb-4">Telegram Bot Mini App</h1>
-    <p class="text-xl">A simple guide to getting started with the bot and mini app.</p>
+<header class="p-8 bg-white text-gray-900 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-3xl font-semibold">Telegram Bot Mini App</h1>
+        <a href="#step1" class="text-xl text-teal-600 hover:text-teal-800">Start Guide</a>
+    </div>
 </header>
 
 <!-- Step-by-Step Guide -->
-<section class="py-16">
+<section class="py-16 px-4">
     <div class="container mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-6">How to Get Started</h2>
-        <p class="text-lg mb-12">Follow these simple steps to start using the Telegram Bot Mini App.</p>
+        <h2 class="text-4xl font-bold text-gray-900 mb-6">Getting Started with Your Telegram Bot Mini App</h2>
+        <p class="text-lg mb-12 text-gray-600">Follow these simple steps to get started quickly. Each step will be revealed as you scroll down.</p>
 
         <div class="space-y-16">
             <!-- Step 1 -->
-            <div class="step" id="step1">
+            <div class="step fade-in" id="step1">
                 <h3 class="text-2xl font-semibold mb-4">Step 1: Start the Bot</h3>
-                <p class="text-lg mb-4">Search for the bot on Telegram, then click <strong>"Start"</strong> to initialize the bot.</p>
-                <div class="highlight text-lg">Make sure to click the "Start" button to begin interacting with the bot!</div>
+                <p class="text-lg mb-4">Search for the bot on Telegram and click the <strong>"Start"</strong> button to initialize the bot.</p>
+                <div class="highlight text-lg">Don't forget to click "Start" to interact with the bot!</div>
             </div>
 
             <!-- Step 2 -->
-            <div class="step" id="step2">
-                <h3 class="text-2xl font-semibold mb-4">Step 2: Access the Mini App</h3>
-                <p class="text-lg mb-4">Open the menu by clicking on the bot’s menu icon, and select the <strong>Mini App</strong> option.</p>
-                <div class="highlight text-lg">You can now use the Mini App directly from within Telegram!</div>
+            <div class="step fade-in" id="step2">
+                <h3 class="text-2xl font-semibold mb-4">Step 2: Open the Mini App</h3>
+                <p class="text-lg mb-4">Click the menu icon on the bot and select <strong>"Mini App"</strong> to access the app.</p>
+                <div class="highlight text-lg">Once you select it, the Mini App will open directly in Telegram.</div>
             </div>
 
             <!-- Step 3 -->
-            <div class="step" id="step3">
+            <div class="step fade-in" id="step3">
                 <h3 class="text-2xl font-semibold mb-4">Step 3: Enjoy the Features</h3>
-                <p class="text-lg mb-4">Explore all the features of the Mini App by following the instructions within the app.</p>
-                <div class="highlight text-lg">From task management to reminders, you can handle it all here!</div>
+                <p class="text-lg mb-4">Explore all the features of the Mini App and start using them to manage tasks, reminders, and more.</p>
+                <div class="highlight text-lg">Experience the ease of using Telegram for your productivity needs.</div>
             </div>
         </div>
 
         <!-- Link to GitHub -->
         <div class="mt-12">
             <a href="https://github.com/your-repository" class="text-teal-500 text-xl hover:text-teal-700">
-                Visit the GitHub Repository for more details.
+                Visit the GitHub Repository for more information and updates.
             </a>
         </div>
     </div>
 </section>
 
 <!-- Footer -->
-<footer class="bg-gray-800 text-white py-4 text-center">
+<footer class="bg-gray-900 text-white py-8 text-center">
     <p>&copy; 2025 Telegram Bot Mini App | All Rights Reserved</p>
 </footer>
 
-<!-- Scripts to show steps -->
+<!-- Scripts to show steps with scroll effect -->
 <script>
     window.addEventListener("scroll", function() {
         const steps = document.querySelectorAll('.step');
@@ -79,7 +131,6 @@
 
         steps.forEach(function(step) {
             const stepTop = step.getBoundingClientRect().top;
-
             if (stepTop < windowHeight - 100) {
                 step.classList.add('visible');
             }
