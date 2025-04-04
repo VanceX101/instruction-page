@@ -6,134 +6,190 @@
     <title>Telegram Bot Mini App Guide</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Global Styles */
+        /* Apple-style Global Styles */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            color: #333;
-            background-color: #f7f7f7;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: #1d1d1f;
+            background: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Header Styles */
-        header {
-            background-color: #fff;
-            box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+        /* Advanced Animations */
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Highlight Box */
-        .highlight {
-            background-color: #fef5c3;
-            padding: 0.5em;
-            border-radius: 10px;
-            font-weight: bold;
-            color: #f1a800;
+        @keyframes scaleIn {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
-        /* Step visibility effects */
+        /* Step Effects */
         .step {
             opacity: 0;
-            transition: opacity 1s ease-out;
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(30px);
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+            border-radius: 30px;
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            box-shadow: 20px 20px 60px #d9d9d9,
+                       -20px -20px 60px #ffffff;
         }
+
         .step.visible {
             opacity: 1;
+            transform: translateY(0);
+            animation: scaleIn 0.8s ease-out;
         }
 
-        /* Animations for elements */
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 1.5s ease-in-out forwards;
+        /* Apple-style Highlight */
+        .highlight {
+            background: linear-gradient(90deg, #f5f5f7 0%, #fef5c340 100%);
+            padding: 1.5rem;
+            border-left: 4px solid #0071e3;
+            border-radius: 12px;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
         }
 
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+        /* Parallax Scrolling Effect */
+        .parallax-section {
+            transform: translateZ(0);
+            will-change: transform;
         }
 
-        /* Responsive Styles */
-        @media screen and (max-width: 768px) {
+        /* Sticky Content */
+        .sticky-content {
+            position: sticky;
+            top: 100px;
+            transition: all 0.3s ease;
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(45deg, #0071e3, #00b4d8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        @media (max-width: 768px) {
             .step {
-                text-align: center;
+                padding: 2rem 1rem;
+                margin: 2rem 0;
+                box-shadow: 10px 10px 30px #d9d9d9,
+                          -10px -10px 30px #ffffff;
             }
-
-            .container {
-                padding-left: 20px;
-                padding-right: 20px;
+            
+            .sticky-content {
+                position: static;
             }
-        }
-
-        /* Scrolling Effect */
-        .scroll-animation {
-            transition: transform 1s ease-out;
         }
     </style>
 </head>
 <body>
 
-<!-- Header -->
-<header class="p-8 bg-white text-gray-900 shadow-md">
-    <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-3xl font-semibold">Telegram Bot Mini App</h1>
-        <a href="#step1" class="text-xl text-teal-600 hover:text-teal-800">Start Guide</a>
-    </div>
-</header>
-
-<!-- Step-by-Step Guide -->
-<section class="py-16 px-4">
-    <div class="container mx-auto text-center">
-        <h2 class="text-4xl font-bold text-gray-900 mb-6">Getting Started with Your Telegram Bot Mini App</h2>
-        <p class="text-lg mb-12 text-gray-600">Follow these simple steps to get started quickly. Each step will be revealed as you scroll down.</p>
-
-        <div class="space-y-16">
-            <!-- Step 1 -->
-            <div class="step fade-in" id="step1">
-                <h3 class="text-2xl font-semibold mb-4">Step 1: Start the Bot</h3>
-                <p class="text-lg mb-4">Search for the bot on Telegram and click the <strong>"Start"</strong> button to initialize the bot.</p>
-                <div class="highlight text-lg">Don't forget to click "Start" to interact with the bot!</div>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="step fade-in" id="step2">
-                <h3 class="text-2xl font-semibold mb-4">Step 2: Open the Mini App</h3>
-                <p class="text-lg mb-4">Click the menu icon on the bot and select <strong>"Mini App"</strong> to access the app.</p>
-                <div class="highlight text-lg">Once you select it, the Mini App will open directly in Telegram.</div>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="step fade-in" id="step3">
-                <h3 class="text-2xl font-semibold mb-4">Step 3: Enjoy the Features</h3>
-                <p class="text-lg mb-4">Explore all the features of the Mini App and start using them to manage tasks, reminders, and more.</p>
-                <div class="highlight text-lg">Experience the ease of using Telegram for your productivity needs.</div>
-            </div>
-        </div>
-
-        <!-- Link to GitHub -->
-        <div class="mt-12">
-            <a href="https://github.com/your-repository" class="text-teal-500 text-xl hover:text-teal-700">
-                Visit the GitHub Repository for more information and updates.
-            </a>
-        </div>
+<!-- Immersive Hero Section -->
+<section class="min-h-screen flex items-center justify-center text-center parallax-section">
+    <div class="container mx-auto px-4">
+        <h1 class="text-6xl font-bold mb-8 gradient-text">Telegram Bot<br>Mini App</h1>
+        <p class="text-2xl text-gray-600 mb-12 max-w-3xl mx-auto">
+            Transform your Telegram experience with our intelligent mini app.<br>
+            Designed for seamless integration and maximum productivity.
+        </p>
     </div>
 </section>
 
-<!-- Footer -->
-<footer class="bg-gray-900 text-white py-8 text-center">
-    <p>&copy; 2025 Telegram Bot Mini App | All Rights Reserved</p>
+<!-- Interactive Guide -->
+<main class="relative">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <!-- Step 1 -->
+        <div class="step" id="step1">
+            <div class="sticky-content">
+                <h3 class="text-4xl font-semibold mb-6">Initiate Bot Session</h3>
+                <p class="text-xl text-gray-600 mb-8">Locate and activate the bot within Telegram's interface to begin your enhanced messaging experience.</p>
+            </div>
+            <div class="highlight">
+                <span class="text-lg font-medium">Pro Tip:</span>
+                <p class="mt-2">Use the search function with @botname for quick access.</p>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step" id="step2">
+            <div class="sticky-content">
+                <h3 class="text-4xl font-semibold mb-6">Launch Mini App</h3>
+                <p class="text-xl text-gray-600 mb-8">Access advanced features through the integrated app interface directly within your chat.</p>
+            </div>
+            <div class="highlight">
+                <span class="text-lg font-medium">Did You Know?</span>
+                <p class="mt-2">The Mini App supports both light and dark mode themes automatically.</p>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step" id="step3">
+            <div class="sticky-content">
+                <h3 class="text-4xl font-semibold mb-6">Full Feature Access</h3>
+                <p class="text-xl text-gray-600 mb-8">Explore comprehensive tools for task management, automated workflows, and smart notifications.</p>
+            </div>
+            <div class="highlight">
+                <span class="text-lg font-medium">Expert Advice:</span>
+                <p class="mt-2">Pin frequently used functions for instant access.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- GitHub Section -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-semibold mb-8">Ainopex P&L</h2>
+        <a href="https://github.com/VanceX101" 
+           class="inline-block px-8 py-4 bg-black text-white rounded-full text-lg 
+                  hover:bg-gray-800 transition-all duration-300 transform hover:scale-105">
+           Explore on GitHub →
+        </a>
+    </div>
+</section>
+
+<!-- Minimal Footer -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto text-center">
+        <p class="text-gray-400">&copy; 2025 Ainopex Lab</p>
+    </div>
 </footer>
 
-<!-- Scripts to show steps with scroll effect -->
 <script>
-    window.addEventListener("scroll", function() {
-        const steps = document.querySelectorAll('.step');
-        const windowHeight = window.innerHeight;
-
-        steps.forEach(function(step) {
-            const stepTop = step.getBoundingClientRect().top;
-            if (stepTop < windowHeight - 100) {
-                step.classList.add('visible');
+    // Advanced Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                
+                // Add sequential animation delay
+                const index = Array.from(entry.target.parentNode.children).indexOf(entry.target);
+                entry.target.style.animationDelay = `${index * 0.2}s`;
             }
+        });
+    }, {
+        threshold: 0.2,
+        rootMargin: '0px 0px -100px 0px'
+    });
+
+    document.querySelectorAll('.step').forEach(step => {
+        observer.observe(step);
+    });
+
+    // Parallax effect
+    window.addEventListener('scroll', () => {
+        const parallaxElements = document.querySelectorAll('.parallax-section');
+        parallaxElements.forEach(element => {
+            const scrolled = window.pageYOffset;
+            element.style.transform = `translateY(${scrolled * 0.5}px)`;
         });
     });
 </script>
