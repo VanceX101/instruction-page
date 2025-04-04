@@ -1,198 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Bot Mini App Guide</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        /* Apple-style Global Styles */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            color: #1d1d1f;
-            background: #ffffff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Telegram Bot Mini App Guide</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Apple-style Global Styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: #1d1d1f;
+      background: #ffffff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-        /* Advanced Animations */
-        @keyframes slideUp {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+    /* Header & Hero Section */
+    .hero {
+      background: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://via.placeholder.com/1600x900') no-repeat center center/cover;
+      opacity: 0.05;
+      z-index: -1;
+    }
+    .gradient-text {
+      background: linear-gradient(45deg, #0071e3, #00b4d8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
-        @keyframes scaleIn {
-            0% { opacity: 0; transform: scale(0.95); }
-            100% { opacity: 1; transform: scale(1); }
-        }
+    /* Advanced Animations */
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scaleIn {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    
+    /* Step Effects */
+    .step {
+      opacity: 0;
+      transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform: translateY(30px);
+      padding: 4rem 2rem;
+      margin: 4rem 0;
+      border-radius: 30px;
+      background: linear-gradient(145deg, #ffffff, #f8f9fa);
+      box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+    }
+    .step.visible {
+      opacity: 1;
+      transform: translateY(0);
+      animation: scaleIn 0.8s ease-out;
+    }
+    
+    /* Apple-style Highlight */
+    .highlight {
+      background: linear-gradient(90deg, #f5f5f7 0%, rgba(254,245,195,0.25) 100%);
+      padding: 1.5rem;
+      border-left: 4px solid #0071e3;
+      border-radius: 12px;
+      margin-top: 2rem;
+      backdrop-filter: blur(10px);
+    }
 
-        /* Step Effects */
-        .step {
-            opacity: 0;
-            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform: translateY(30px);
-            padding: 4rem 2rem;
-            margin: 4rem 0;
-            border-radius: 30px;
-            background: linear-gradient(145deg, #ffffff, #f8f9fa);
-            box-shadow: 20px 20px 60px #d9d9d9,
-                       -20px -20px 60px #ffffff;
-        }
+    /* Parallax Scrolling Effect */
+    .parallax-section {
+      transform: translateZ(0);
+      will-change: transform;
+    }
 
-        .step.visible {
-            opacity: 1;
-            transform: translateY(0);
-            animation: scaleIn 0.8s ease-out;
-        }
+    /* Sticky Content */
+    .sticky-content {
+      position: sticky;
+      top: 100px;
+      transition: all 0.3s ease;
+    }
 
-        /* Apple-style Highlight */
-        .highlight {
-            background: linear-gradient(90deg, #f5f5f7 0%, #fef5c340 100%);
-            padding: 1.5rem;
-            border-left: 4px solid #0071e3;
-            border-radius: 12px;
-            margin: 2rem 0;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Parallax Scrolling Effect */
-        .parallax-section {
-            transform: translateZ(0);
-            will-change: transform;
-        }
-
-        /* Sticky Content */
-        .sticky-content {
-            position: sticky;
-            top: 100px;
-            transition: all 0.3s ease;
-        }
-
-        /* Gradient Text */
-        .gradient-text {
-            background: linear-gradient(45deg, #0071e3, #00b4d8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        @media (max-width: 768px) {
-            .step {
-                padding: 2rem 1rem;
-                margin: 2rem 0;
-                box-shadow: 10px 10px 30px #d9d9d9,
-                          -10px -10px 30px #ffffff;
-            }
-            
-            .sticky-content {
-                position: static;
-            }
-        }
-    </style>
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .step {
+        padding: 2rem 1rem;
+        margin: 2rem 0;
+        box-shadow: 10px 10px 30px #d9d9d9, -10px -10px 30px #ffffff;
+      }
+      .sticky-content {
+        position: static;
+      }
+      .hero h1 {
+        font-size: 3rem;
+      }
+      .hero p {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<!-- Immersive Hero Section -->
-<section class="min-h-screen flex items-center justify-center text-center parallax-section">
-    <div class="container mx-auto px-4">
-        <h1 class="text-6xl font-bold mb-8 gradient-text">Telegram Bot<br>Mini App</h1>
-        <p class="text-2xl text-gray-600 mb-12 max-w-3xl mx-auto">
-            Transform your Telegram experience with our intelligent mini app.<br>
-            Designed for seamless integration and maximum productivity.
-        </p>
+  <!-- Immersive Hero Section -->
+  <section class="hero parallax-section">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-6xl md:text-7xl font-bold mb-8 gradient-text">Ainopex P&L<br>Bot</h1>
+      <p class="text-2xl md:text-3xl text-gray-600 mb-12 max-w-3xl mx-auto">
+        Designed for seamless integration and maximum productivity.
+      </p>
     </div>
-</section>
+  </section>
 
-<!-- Interactive Guide -->
-<main class="relative">
+  <!-- Interactive Guide -->
+  <main class="relative">
     <div class="container mx-auto px-4 max-w-5xl">
-        <!-- Step 1 -->
-        <div class="step" id="step1">
-            <div class="sticky-content">
-                <h3 class="text-4xl font-semibold mb-6">Initiate Bot Session</h3>
-                <p class="text-xl text-gray-600 mb-8">Locate and activate the bot within Telegram's interface to begin your enhanced messaging experience.</p>
-            </div>
-            <div class="highlight">
-                <span class="text-lg font-medium">Pro Tip:</span>
-                <p class="mt-2">Use the search function with @botname for quick access.</p>
-            </div>
+      <!-- Step 1 -->
+      <div class="step" id="step1">
+        <div class="sticky-content">
+          <h3 class="text-4xl md:text-5xl font-semibold mb-6">Initiate Bot Session</h3>
+          <p class="text-xl md:text-2xl text-gray-600 mb-8">
+            Locate and activate the bot within Telegram's interface to begin your enhanced messaging experience.
+          </p>
         </div>
+        <div class="highlight">
+          <span class="text-lg font-medium">Pro Tip:</span>
+          <p class="mt-2">Use the search function with @botname for quick access.</p>
+        </div>
+      </div>
 
-        <!-- Step 2 -->
-        <div class="step" id="step2">
-            <div class="sticky-content">
-                <h3 class="text-4xl font-semibold mb-6">Launch Mini App</h3>
-                <p class="text-xl text-gray-600 mb-8">Access advanced features through the integrated app interface directly within your chat.</p>
-            </div>
-            <div class="highlight">
-                <span class="text-lg font-medium">Did You Know?</span>
-                <p class="mt-2">The Mini App supports both light and dark mode themes automatically.</p>
-            </div>
+      <!-- Step 2 -->
+      <div class="step" id="step2">
+        <div class="sticky-content">
+          <h3 class="text-4xl md:text-5xl font-semibold mb-6">Launch Mini App</h3>
+          <p class="text-xl md:text-2xl text-gray-600 mb-8">
+            Access advanced features through the integrated app interface directly within your chat.
+          </p>
         </div>
+        <div class="highlight">
+          <span class="text-lg font-medium">Did You Know?</span>
+          <p class="mt-2">The Mini App supports both light and dark mode themes automatically.</p>
+        </div>
+      </div>
 
-        <!-- Step 3 -->
-        <div class="step" id="step3">
-            <div class="sticky-content">
-                <h3 class="text-4xl font-semibold mb-6">Full Feature Access</h3>
-                <p class="text-xl text-gray-600 mb-8">Explore comprehensive tools for task management, automated workflows, and smart notifications.</p>
-            </div>
-            <div class="highlight">
-                <span class="text-lg font-medium">Expert Advice:</span>
-                <p class="mt-2">Pin frequently used functions for instant access.</p>
-            </div>
+      <!-- Step 3 -->
+      <div class="step" id="step3">
+        <div class="sticky-content">
+          <h3 class="text-4xl md:text-5xl font-semibold mb-6">Full Feature Access</h3>
+          <p class="text-xl md:text-2xl text-gray-600 mb-8">
+            Explore comprehensive tools for task management, automated workflows, and smart notifications.
+          </p>
         </div>
+        <div class="highlight">
+          <span class="text-lg font-medium">Expert Advice:</span>
+          <p class="mt-2">Pin frequently used functions for instant access.</p>
+        </div>
+      </div>
     </div>
-</main>
+  </main>
 
-<!-- GitHub Section -->
-<section class="py-20 bg-gray-50">
+  <!-- GitHub Section -->
+  <section class="py-20 bg-gray-50">
     <div class="container mx-auto text-center">
-        <h2 class="text-3xl font-semibold mb-8">Ainopex P&L</h2>
-        <a href="https://github.com/VanceX101" 
-           class="inline-block px-8 py-4 bg-black text-white rounded-full text-lg 
-                  hover:bg-gray-800 transition-all duration-300 transform hover:scale-105">
-           Explore on GitHub →
-        </a>
+      <h2 class="text-3xl md:text-4xl font-semibold mb-8">Ainopex Source</h2>
+      <a href="https://github.com/your-repository"
+         class="inline-block px-8 py-4 bg-black text-white rounded-full text-lg md:text-xl 
+                hover:bg-gray-800 transition-all duration-300 transform hover:scale-105">
+         Explore on GitHub →
+      </a>
     </div>
-</section>
+  </section>
 
-<!-- Minimal Footer -->
-<footer class="bg-gray-900 text-white py-12">
+  <!-- Minimal Footer -->
+  <footer class="bg-gray-900 text-white py-12">
     <div class="container mx-auto text-center">
-        <p class="text-gray-400">&copy; 2025 Ainopex Lab</p>
+      <p class="text-gray-400">&copy; 2025 Ainopex Lab.</p>
     </div>
-</footer>
+  </footer>
 
-<script>
-    // Advanced Intersection Observer
+  <script>
+    // Intersection Observer for smooth step animations
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                
-                // Add sequential animation delay
-                const index = Array.from(entry.target.parentNode.children).indexOf(entry.target);
-                entry.target.style.animationDelay = `${index * 0.2}s`;
-            }
-        });
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Sequential animation delay for child steps
+          const index = Array.from(entry.target.parentNode.children).indexOf(entry.target);
+          entry.target.style.animationDelay = `${index * 0.2}s`;
+        }
+      });
     }, {
-        threshold: 0.2,
-        rootMargin: '0px 0px -100px 0px'
+      threshold: 0.2,
+      rootMargin: '0px 0px -100px 0px'
     });
 
     document.querySelectorAll('.step').forEach(step => {
-        observer.observe(step);
+      observer.observe(step);
     });
 
-    // Parallax effect
+    // Parallax effect for hero section
     window.addEventListener('scroll', () => {
-        const parallaxElements = document.querySelectorAll('.parallax-section');
-        parallaxElements.forEach(element => {
-            const scrolled = window.pageYOffset;
-            element.style.transform = `translateY(${scrolled * 0.5}px)`;
-        });
+      const parallaxElements = document.querySelectorAll('.parallax-section');
+      parallaxElements.forEach(element => {
+        const scrolled = window.pageYOffset;
+        element.style.transform = `translateY(${scrolled * 0.5}px)`;
+      });
     });
-</script>
-
+  </script>
 </body>
 </html>
